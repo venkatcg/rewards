@@ -55,7 +55,7 @@ mvn spring-boot:run
 
 End Point :
 
-POST /api/rewards
+POST http://localhost:8082/api/rewards
 
 Request Body
 
