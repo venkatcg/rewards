@@ -1,41 +1,38 @@
 package com.customer.rewards.model;
 
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import java.time.LocalDate;
 
+@Setter
+@Getter
+@NoArgsConstructor
+@Entity
+@Table(name = "transactions")
 public class Transaction {
 
-    private String customer;
+    public Transaction(Long id, String customerId, String customerName, double amount, LocalDate transactionDate) {
+        this.id = id;
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.amount = amount;
+        this.transactionDate = transactionDate;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String customerId;
+    private String customerName;
+
     private double amount;
+    private LocalDate transactionDate;
 
-    public Transaction(String customer, double amount, LocalDate date) {
-        this.customer = customer;
-        this.amount = amount;
-        this.date = date;
-    }
-
-    private LocalDate date;
-
-    public String getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(String customer) {
-        this.customer = customer;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public LocalDate getDate() {
-        return date;
-    }
-
-    public void setDate(LocalDate date) {
-        this.date = date;
-    }
+    // Getters and Setters
 }
+
+
