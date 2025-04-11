@@ -53,29 +53,98 @@ mvn clean install
 mvn spring-boot:run
 
 
-End Point :
+1) Customer Reward Summary
+Get total and monthly reward points for a specific customer
 
-POST http://localhost:8082/api/rewards
+GET /api/rewards/{customerId}
 
-Request Body
+Request
+GET http://localhost:8082/api/rewards/C1
 
-[
-  { "customer": "Alice", "amount": 120, "date": "2025-01-15" },
-  { "customer": "Alice", "amount": 75, "date": "2025-01-25" },
-  { "customer": "Bob", "amount": 200, "date": "2025-02-05" },
-  { "customer": "Alice", "amount": 130, "date": "2025-03-10" }
-]
-
-Response 
+Response
 
 {
-    "Bob": {
-        "total": 250,
-        "2025-02": 250
+    "customerId": "C1",
+    "customerName": "Alice",
+    "monthlyPoints": {
+        "JANUARY": 90,
+        "MARCH": 250,
+        "FEBRUARY": 25
     },
-    "Alice": {
-        "total": 225,
-        "2025-01": 115,
-        "2025-03": 110
-    }
+    "totalPoints": 365
 }
+
+2) Monthly Transactions and Points
+Get all transactions and calculated points for a specific customer in a specific month
+
+GET /api/rewards/{customerId}/month/{yyyy-MM}
+
+GET http://localhost:8082/api/rewards/C2/month/2024-02
+
+Response :
+
+{
+    "customerId": "C2",
+    "month": "2024-02",
+    "transactions": [
+        {
+            "amount": 130.0,
+            "transactionDate": "2024-02-17",
+            "points": 110
+        }
+    ]
+}
+
+3. Rewards for a Date Range
+Get reward points for all customers within a specific date range
+
+GET /api/rewards/range?from={yyyy-MM}&to={yyyy-MM}
+
+GET http://localhost:8082/api/rewards/range?from=2024-01&to=2024-03
+
+Response :
+
+{
+    "from": "2024-01",
+    "to": "2024-03",
+    "rewards": [
+        {
+            "customerId": "C1",
+            "customerName": "Alice",
+            "month": "JANUARY",
+            "points": 90
+        },
+        {
+            "customerId": "C1",
+            "customerName": "Alice",
+            "month": "MARCH",
+            "points": 250
+        },
+        {
+            "customerId": "C1",
+            "customerName": "Alice",
+            "month": "FEBRUARY",
+            "points": 25
+        },
+        {
+            "customerId": "C2",
+            "customerName": "Bob",
+            "month": "JANUARY",
+            "points": 45
+        },
+        {
+            "customerId": "C2",
+            "customerName": "Bob",
+            "month": "MARCH",
+            "points": 10
+        },
+        {
+            "customerId": "C2",
+            "customerName": "Bob",
+            "month": "FEBRUARY",
+            "points": 110
+        }
+    ]
+}
+
+
