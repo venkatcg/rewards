@@ -1,6 +1,5 @@
 package com.customer.rewards.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CustomerMonthlyPointsDTO {
     private String customerId;
-     private String month;
+    private String month;
     private int points;
 
     public CustomerMonthlyPointsDTO(String customerId, String customerName, String month, int points) {

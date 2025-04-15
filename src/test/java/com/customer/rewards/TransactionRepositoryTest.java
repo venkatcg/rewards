@@ -43,9 +43,9 @@ class TransactionRepositoryTest {
     @DisplayName("Should return transactions within given date range")
     void findByCustomerIdAndTransactionDateBetween_shouldReturnMatchingTransactions() {
         // Arrange
-        Transaction tx1 = new Transaction(null,"t1", "cust1", 120.0, LocalDate.of(2025, 3, 5));
-        Transaction tx2 = new Transaction(null,"t2", "cust1", 75.0, LocalDate.of(2025, 4, 10));
-        Transaction tx3 = new Transaction(null,"t3", "cust2", 100.0, LocalDate.of(2025, 4, 15));
+        Transaction tx1 = new Transaction(null, "t1", "cust1", 120.0, LocalDate.of(2025, 3, 5));
+        Transaction tx2 = new Transaction(null, "t2", "cust1", 75.0, LocalDate.of(2025, 4, 10));
+        Transaction tx3 = new Transaction(null, "t3", "cust2", 100.0, LocalDate.of(2025, 4, 15));
 
         repo.saveAll(List.of(tx1, tx2, tx3));
 

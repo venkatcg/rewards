@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/rewards")
 public class RewardController {
     private final RewardService service;
-    public RewardController(RewardService service) { this.service = service; }
+
+    public RewardController(RewardService service) {
+        this.service = service;
+    }
 
     @GetMapping("/{customerId}")
     public CustomerRewardDTO getRewards(@PathVariable String customerId) {
@@ -27,6 +30,7 @@ public class RewardController {
     public DateRangeRewardsDTO getRange(@RequestParam String from, @RequestParam String to) {
         return service.getRewardsInRange(from, to);
     }
+
     @GetMapping
     public ResponseEntity<?> getRewards(
             @RequestParam(required = false) String customerId,

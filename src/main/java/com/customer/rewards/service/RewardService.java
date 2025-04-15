@@ -1,11 +1,6 @@
 package com.customer.rewards.service;
 
-import com.customer.rewards.dto.CustomerRewardDTO;
-import com.customer.rewards.dto.MonthlyTransactionDTO;
-import com.customer.rewards.dto.DateRangeRewardsDTO123;
-import com.customer.rewards.dto.CustomerMonthlyPointsDTO;
-import com.customer.rewards.dto.TransactionDTO;
-import com.customer.rewards.dto.DateRangeRewardsDTO;
+import com.customer.rewards.dto.*;
 import com.customer.rewards.model.Transaction;
 import com.customer.rewards.repository.TransactionRepository;
 import com.customer.rewards.util.RewardCalculator;
@@ -21,13 +16,13 @@ public class RewardService {
     private final TransactionRepository transactionRepository;
     private final RewardCalculator rewardCalculator;
 
-    public RewardService(RewardCalculator rewardCalculator,TransactionRepository transactionRepository) {
+    public RewardService(RewardCalculator rewardCalculator, TransactionRepository transactionRepository) {
 
         this.transactionRepository = transactionRepository;
-        this.rewardCalculator=rewardCalculator;
+        this.rewardCalculator = rewardCalculator;
     }
 
-     public CustomerRewardDTO getCustomerRewards(String customerId) {
+    public CustomerRewardDTO getCustomerRewards(String customerId) {
         List<Transaction> txns = transactionRepository.findByCustomerId(customerId);
         Map<String, Integer> monthlyPoints = new HashMap<>();
         int totalPoints = 0;
@@ -89,6 +84,7 @@ public class RewardService {
         result.setRewards(list);
         return result;
     }
+
     public DateRangeRewardsDTO123 getCustomerRewardsInRange(String customerId, String from, String to) {
         YearMonth start = YearMonth.parse(from);
         YearMonth end = YearMonth.parse(to);
@@ -101,6 +97,7 @@ public class RewardService {
 
         return new DateRangeRewardsDTO123(customerId, from, to, totalRewards, monthlyRewards);
     }
+
     public List<CustomerMonthlyPointsDTO> calculateMonthlyRewards(String customerId, YearMonth start, YearMonth end) {
         List<Transaction> transactions = transactionRepository.findByCustomerIdAndDateRange(
                 customerId,
@@ -122,7 +119,7 @@ public class RewardService {
                 monthlyPoints += rewardCalculator.calculatePoints(tx.getAmount());
             }
 
-            result.add(new CustomerMonthlyPointsDTO(month.toString(), null,null,monthlyPoints));
+            result.add(new CustomerMonthlyPointsDTO(month.toString(), null, null, monthlyPoints));
         }
 
         // Sort by month

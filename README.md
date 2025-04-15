@@ -147,4 +147,15 @@ Response :
     ]
 }
 
+4) Get Transactions for a Customer in a Specific Month
+GET /api/rewards/customer/{customerId}/month/{yearMonth}
+Request
+http://localhost:8082/api/rewards/C001/month/2024-02
 
+response
+
+{
+    "customerId": "C001",
+    "month": "2024-02",
+    "transactions": []
+}
