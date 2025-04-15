@@ -4,12 +4,14 @@ import com.customer.rewards.dto.CustomerRewardDTO;
 import com.customer.rewards.model.Transaction;
 import com.customer.rewards.repository.TransactionRepository;
 import com.customer.rewards.service.RewardService;
+import com.customer.rewards.util.RewardCalculator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,12 +24,13 @@ class RewardServiceTest {
     private TransactionRepository repo;
     @InjectMocks
     private RewardService service;
-
+@Mock
+private RewardCalculator rewardCalculator;
     @Test
     void testCalculatePoints() {
-        assertEquals(90, service.calculatePoints(120));
-        assertEquals(0, service.calculatePoints(50));
-        assertEquals(30, service.calculatePoints(80));
+        assertEquals(90, rewardCalculator.calculatePoints(120));
+        assertEquals(0, rewardCalculator.calculatePoints(50));
+        assertEquals(30, rewardCalculator.calculatePoints(80));
     }
 
     @Test

@@ -1,5 +1,7 @@
 package com.customer.rewards.util;
 
+import org.springframework.stereotype.Component;
+
 public class RewardCalculator {
     public int calculatePoints(double amount) {
         if (amount <= 50) return 0;
